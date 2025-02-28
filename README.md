@@ -1,119 +1,118 @@
-# Waste Classification Models
+# waste classification models
 
-This directory contains the waste classification models used by the SWMRO platform for automated waste sorting. The models are built on EfficientNetV2S and fine-tuned to accurately classify waste items into detailed categories.
-
----
-
-## Available Models
-
-- **efficientnetv2s_waste_classifier.keras** (86.88 MB) – Base model
-- **efficientnetv2s_waste_classifier_fine_tuned.keras** (198.11 MB) – Fine-tuned model
-- **efficientnetv2s_waste_classifier_final.keras** (198.11 MB) – Final model
-- **efficientnetv2s_waste_classifier_compatible.keras** – Compatible with TensorFlow 2.12.0
+this directory contains waste classification models used by the swmro platform for automated waste sorting. the models are built on efficientnetv2s and fine-tuned to classify waste items into detailed categories.
 
 ---
 
-## Downloading the Models
+## available models
 
-The models are hosted on HuggingFace due to their large size. To download them, install the required packages and run the download script:
+- **efficientnetv2s_waste_classifier.keras** (86.88 mb) – base model
+- **efficientnetv2s_waste_classifier_fine_tuned.keras** (198.11 mb) – fine-tuned model
+- **efficientnetv2s_waste_classifier_final.keras** (198.11 mb) – final model
+- **efficientnetv2s_waste_classifier_compatible.keras** – compatible with tensorflow 2.12.0
+
+---
+
+## downloading the models
+
+the models are hosted on huggingface due to their large size. to download them:
 
 ```bash
 pip install tqdm requests
 ./download_models.py
 ```
 
-All models will be downloaded to this directory.
+all models will be downloaded to this directory.
 
 ---
 
-## Creating a Compatible Model
+## creating a compatible model
 
-If you experience issues loading the models due to TensorFlow version incompatibility, run the conversion script:
+if you experience issues loading the models due to tensorflow version incompatibility:
 
 ```bash
 ./convert_model.py
 ```
 
-This creates a new model file named `efficientnetv2s_waste_classifier_compatible.keras` that works with TensorFlow 2.12.0.
+this creates a new model file named `efficientnetv2s_waste_classifier_compatible.keras` that works with tensorflow 2.12.0.
 
 ---
 
-## Model Details & Architecture
+## model details & architecture
 
-### Architecture Overview
+### architecture overview
 
-- **Base Model**: EfficientNetV2S pre-trained on ImageNet
-- **Input Size**: 224x224 RGB images
-- **Output**: 7 waste categories (detailed below)
-- **Training Approach**: Transfer learning with fine-tuning of later blocks
-- **Optimization**: Adam optimizer with learning rate scheduling
-- **Regularization**: Dropout (0.5) and BatchNormalization
+- **base model**: efficientnetv2s pre-trained on imagenet
+- **input size**: 224x224 rgb images
+- **output**: 7 waste categories
+- **training approach**: transfer learning with fine-tuning
+- **optimization**: adam optimizer with learning rate scheduling
+- **regularization**: dropout (0.5) and batchnormalization
 
-### Waste Categories
+### waste categories
 
-The models classify waste into the following categories:
+the models classify waste into:
 
-1. **Cardboard** → RECYCLABLE
-2. **Glass** → RECYCLABLE
-3. **Metal** → RECYCLABLE
-4. **Paper** → RECYCLABLE
-5. **Plastic** → RECYCLABLE
-6. **Compost** → ORGANIC
-7. **Trash** → GENERAL
+1. **cardboard** → recyclable
+2. **glass** → recyclable
+3. **metal** → recyclable
+4. **paper** → recyclable
+5. **plastic** → recyclable
+6. **compost** → organic
+7. **trash** → general
 
-*Note:* A future upgrade will include a **Hazardous** category.
-
----
-
-## Training Process
-
-The model was trained using the following steps:
-
-1. **Data Preparation**
-   - Split dataset into 80% training and 20% validation sets.
-   - Apply extensive data augmentation (flips, rotations, zoom, contrast, brightness adjustments).
-
-2. **Transfer Learning**
-   - Initially train with the EfficientNetV2S base frozen.
-   - Fine-tune later blocks for domain adaptation.
-
-3. **Optimization Strategy**
-   - Use early stopping to prevent overfitting.
-   - Reduce learning rate on plateau.
-   - Employ model checkpointing to save the best weights.
+*note:* a future upgrade will include a **hazardous** category.
 
 ---
 
-## Performance
+## training process
 
-The model demonstrates high accuracy and robust performance:
+the model was trained using:
 
-- **Overall Accuracy**: 92.7% on the test dataset
-- **Per-Category Performance**:
-  - Cardboard: 95.3% precision, 96.1% recall
-  - Glass: 91.8% precision, 90.5% recall
-  - Metal: 93.2% precision, 92.7% recall
-  - Paper: 90.1% precision, 91.3% recall
-  - Plastic: 89.7% precision, 88.9% recall
-  - Compost: 94.5% precision, 95.2% recall
-  - Trash: 88.6% precision, 87.4% recall
+1. **data preparation**
+   - 80% training, 20% validation split
+   - data augmentation (flips, rotations, zoom, contrast adjustments)
 
----
+2. **transfer learning**
+   - initial training with efficientnetv2s base frozen
+   - fine-tuning later blocks for domain adaptation
 
-## Integration with SWMRO
-
-This model powers the SWMRO platform by:
-
-- Driving the waste analysis module.
-- Supporting the citizen portal for waste identification.
-- Feeding data into the sustainability dashboard.
-- Enhancing recycling efficiency metrics.
+3. **optimization strategy**
+   - early stopping to prevent overfitting
+   - reduce learning rate on plateau
+   - model checkpointing to save best weights
 
 ---
 
-## Usage & Inference
+## performance
 
-### Requirements
+model performance metrics:
+
+- **overall accuracy**: 92.7% on test dataset
+- **per-category performance**:
+  - cardboard: 95.3% precision, 96.1% recall
+  - glass: 91.8% precision, 90.5% recall
+  - metal: 93.2% precision, 92.7% recall
+  - paper: 90.1% precision, 91.3% recall
+  - plastic: 89.7% precision, 88.9% recall
+  - compost: 94.5% precision, 95.2% recall
+  - trash: 88.6% precision, 87.4% recall
+
+---
+
+## integration with swmro
+
+this model powers:
+- waste analysis module
+- citizen portal for waste identification
+- sustainability dashboard data
+- recycling efficiency metrics
+
+---
+
+## usage & inference
+
+### requirements
 
 ```
 tensorflow>=2.8.0
@@ -124,17 +123,17 @@ seaborn>=0.11.0
 scikit-learn>=1.0.0
 ```
 
-### Python Example (Direct Model Usage)
+### python example (direct model usage)
 
 ```python
 import tensorflow as tf
 import cv2
 import numpy as np
 
-# Load the compatible model
+# load the compatible model
 model = tf.keras.models.load_model('efficientnetv2s_waste_classifier_compatible.keras')
 
-# Preprocess an image
+# preprocess an image
 def preprocess_image(image_path):
     img = cv2.imread(image_path)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -142,30 +141,30 @@ def preprocess_image(image_path):
     img = tf.keras.applications.efficientnet_v2.preprocess_input(img)
     return np.expand_dims(img, axis=0)
 
-# Make a prediction
+# make a prediction
 image = preprocess_image('path/to/image.jpg')
 predictions = model.predict(image)
 
-# Class names and interpretation
+# class names and interpretation
 class_names = ['cardboard', 'compost', 'glass', 'metal', 'paper', 'plastic', 'trash']
 predicted_class = class_names[np.argmax(predictions[0])]
 confidence = np.max(predictions[0])
 
-print(f"Predicted class: {predicted_class}")
-print(f"Confidence: {confidence:.4f}")
+print(f"predicted class: {predicted_class}")
+print(f"confidence: {confidence:.4f}")
 ```
 
-### Inference API Example
+### inference api example
 
 ```python
 import tensorflow as tf
 from PIL import Image
 import numpy as np
 
-# Load the final model
+# load the final model
 model = tf.keras.models.load_model('efficientnetv2s_waste_classifier_final.keras')
 
-# Define class names and mapping to backend categories
+# define class names and mapping to backend categories
 class_names = ['cardboard', 'compost', 'glass', 'metal', 'paper', 'plastic', 'trash']
 mapping = {
     'cardboard': 'RECYCLABLE',
@@ -177,14 +176,14 @@ mapping = {
     'trash': 'GENERAL'
 }
 
-# Preprocess image using PIL
+# preprocess image using PIL
 def preprocess_image(image_path):
     img = Image.open(image_path).resize((224, 224))
     img_array = tf.keras.preprocessing.image.img_to_array(img)
     img_array = tf.expand_dims(img_array, 0)
     return img_array / 255.0
 
-# Classify waste and return structured output
+# classify waste and return structured output
 def classify_waste(image_path):
     preprocessed_img = preprocess_image(image_path)
     predictions = model.predict(preprocessed_img)
@@ -198,25 +197,25 @@ def classify_waste(image_path):
         'confidence': float(confidence)
     }
 
-# Example usage
+# example usage
 result = classify_waste('path/to/image.jpg')
 print(result)
 ```
 
 ---
 
-## Sample Prediction Output
+## sample prediction output
 
-When using the test script or API, a sample prediction output appears as follows:
+when using the test script or api, a sample prediction output appears as:
 
 ```
-Prediction Results:
+prediction results:
 ==================================================
-Detailed Class: compost
-Backend Category: ORGANIC
-Confidence: 0.1661
+detailed class: compost
+backend category: ORGANIC
+confidence: 0.1661
 
-Detailed Class Probabilities:
+detailed class probabilities:
   cardboard: 0.1263
   compost: 0.1661
   glass: 0.1640
@@ -225,38 +224,37 @@ Detailed Class Probabilities:
   plastic: 0.1409
   trash: 0.1314
 
-Backend Category Probabilities:
+backend category probabilities:
   GENERAL: 0.1314
   RECYCLABLE: 0.7025
   ORGANIC: 0.1661
   HAZARDOUS: 0.0000
 
-Model Type: EfficientNetV2S
+model type: efficientnetv2s
 ```
 
 ---
 
-## Future Improvements
+## future improvements
 
-Planned enhancements include:
-
-- Expanding the dataset with more diverse waste items.
-- Implementing model quantization for edge deployment.
-- Exploring MobileNetV3 for mobile applications.
-- Adding multi-label classification for mixed waste items.
-
----
-
-## License
-
-This project is part of the SWMRO project and is released under the MIT License.
+planned enhancements:
+- expanding dataset with more diverse waste items
+- implementing model quantization for edge deployment
+- exploring mobilenetv3 for mobile applications
+- adding multi-label classification for mixed waste items
 
 ---
 
-## Acknowledgments
+## license
 
-- Model architecture based on EfficientNetV2S by Google Research.
-- Training and fine-tuning using TensorFlow and Keras.
-- Special thanks to contributors of waste classification datasets.
+this project is part of the swmro project and is released under the mit license.
+
+---
+
+## acknowledgments
+
+- model architecture based on efficientnetv2s by google research
+- training and fine-tuning using tensorflow and keras
+- special thanks to contributors of waste classification datasets
 
 © 2025 Ashutosh Sharma. All rights reserved.
