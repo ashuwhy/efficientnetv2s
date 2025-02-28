@@ -1,6 +1,6 @@
 # waste classification models
 
-this directory contains waste classification models used by the swmro platform for automated waste sorting. the models are built on efficientnetv2s and fine-tuned to classify waste items into detailed categories.
+this directory contains waste classification models used by the swmro platform (my 2nd year software engineering project, will release the code after completion & evaluation) for automated waste sorting. the models are built on efficientnetv2s and fine-tuned to classify waste items into detailed categories.
 
 ---
 
