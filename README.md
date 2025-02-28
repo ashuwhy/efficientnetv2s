@@ -61,7 +61,7 @@ the models classify waste into:
 6. **compost** → organic
 7. **trash** → general
 
-*note:* a future upgrade will include a **hazardous** category.
+*note:* if i wish, a future upgrade will include a **hazardous** category.
 
 ---
 
